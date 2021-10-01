@@ -28,8 +28,6 @@ if (playerone > playertwo) {
     console.log('Draw');
 }*/
 
-//let Enddate = new Date ('9/28/2021');
-// let Startdate = new Date ('1/1/2000');
 
 /* let startDate = new Date('1/1/2000')
 let endDate = new Date('9/28/2021')
