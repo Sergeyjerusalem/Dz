@@ -1,4 +1,4 @@
-const p = new Promise((res) => {
+const zero = new Promise((res) => {
     console.log('start zero');
     setTimeout(() => {
         console.log('zero');
@@ -6,45 +6,53 @@ const p = new Promise((res) => {
     }, Math.random() * 5000);
 })
 
+function first(callback) {
+    console.log('start first');
+    setTimeout(() => {
+        console.log('first');
+        callback()
+    }, Math.random() * 5000)
+}
 
-p.then(function first() {
+function second() {
+    console.log('start second');
     return new Promise((res) => {
-        console.log('start first');
         setTimeout(() => {
-            console.log('first');
+            console.log('second');
             res();
-        }, Math.random() * 5000)
+        }, Math.random() * 5000);
     })
-})
+}
 
-    .then(function second() {
-        return new Promise((res) => {
-            console.log('start second');
-            setTimeout(() => {
-                console.log('second');
-                return res();
-            }, Math.random() * 5000);
+function third() {
+    console.log('start third');
+    return Promise.resolve('third')
+        .then((text) => console.log(text))
+}
+
+function fourth(callback) {
+    console.log('start fourth');
+    setTimeout(() => {
+        console.log('fourth');
+        callback()
+    }, Math.random() * 5000)
+}
+
+async function fifth() {
+    console.log('start fifth');
+    console.log('fifth');
+}
+
+
+zero
+    .then(() => {
+        first(() => {
+            second()
+                .then(() => third())
+                .then(() => {
+                    fourth(() => {
+                        fifth()
+                    })
+               })
         })
     })
-
-    .then(function third() {
-        console.log('start third');
-        return Promise.resolve('third')
-            .then((text) => console.log(text))
-    })
-
-    .then(function fourth() {
-        return new Promise((res) => {
-            console.log('start fourth');
-            setTimeout(() => {
-                console.log('fourth');
-                return res();
-            }, Math.random() * 5000)
-        })
-    })
-
-    .then(async function fifth() {
-        console.log('start fifth');
-        console.log('fifth');
-    })
-
