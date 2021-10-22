@@ -26,9 +26,7 @@ class Trees{
         this.price = this.price * quantity;
     }
     
-    toString() {
-        return `You have ${this.quantity} ${this.treename}s  in your garden, it will cost you ${this.price}$`;
-    }
+    
 }
 
 module.exports = Trees;
